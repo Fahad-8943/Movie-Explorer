@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./MovieDetails.css";
 import ErrorMessage from "../components/ErrorMessage";
 import Loader from "../components/Loader";
