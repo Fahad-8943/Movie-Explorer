@@ -19,7 +19,7 @@ function MovieDetails() {
       );
       const data = await response.json();
       if (data.Response === "False") {
-        setError(data.Error);
+        setError("Something went wrong. Please try again.");
         return;
       }
       setMovieDetails(data);
