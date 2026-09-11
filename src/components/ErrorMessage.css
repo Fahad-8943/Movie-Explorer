@@ -1,0 +1,19 @@
+.error-message {
+  width: min(90%, 700px);
+  margin: 30px auto;
+  padding: 16px 20px;
+
+  background-color: #171B24;
+  border: 1px solid #EF6461;
+  border-radius: 10px;
+
+  text-align: center;
+}
+
+.error-message p {
+  margin: 0;
+
+  color: #EF6461;
+  font-size: 1rem;
+  line-height: 1.5;
+}

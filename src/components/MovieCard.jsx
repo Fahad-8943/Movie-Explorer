@@ -1,25 +1,26 @@
 import React from "react";
 import "./MovieCard.css";
-
 function MovieCard({ movie }) {
   return (
-    <>
-      <div class="movie-card">
-        <img src={movie.Poster} alt={movie.Title} className="img-fluid" />
+    <div className="movie-card">
+      <img src={movie.Poster} alt={movie.Title} />
 
-        <div class="movie-info">
-          <h2>{movie.Title} </h2>
-          <p>
-            <strong>Year:</strong>
-            {movie.Year}
-          </p>
+      <div className="movie-info">
+        <h2>{movie.Title}</h2>
 
-          <p>
-            <strong>Type:</strong> {movie.Type}
-          </p>
-        </div>
+        <p>
+          <strong>Year:</strong> {movie.Year}
+        </p>
+
+        <p>
+          <strong>IMDb Rating:</strong> ⭐ {movie.imdbRating}
+        </p>
+
+        <p>
+          <strong>Plot:</strong> {movie.Plot}
+        </p>
       </div>
-    </>
+    </div>
   );
 }
 

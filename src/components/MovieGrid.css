@@ -1,5 +1,11 @@
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+
+  padding: 1.3rem 0 2.5rem;
+}
+.movie-grid a {
+  text-decoration: none;
+  color: inherit;
 }

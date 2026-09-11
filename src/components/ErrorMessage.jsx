@@ -1,11 +1,10 @@
 import React from "react";
+import "./ErrorMessage.css"
 
 function ErrorMessage({ error }) {
   return (
-    <div>
-      <p>
-        <strong>{error}</strong>
-      </p>
+    <div className="error-message">
+      <p>{error}</p>
     </div>
   );
 }

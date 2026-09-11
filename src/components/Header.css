@@ -1,0 +1,49 @@
+.header {
+  background-color: #11141b;
+  border-bottom: 1px solid #262c38;
+  color: #f5f7fa;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  background: linear-gradient(135deg, #ffd166, #f5b942, #9c6b1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 700;
+}
+
+.logo:hover {
+  color: #ffd166;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: #f5b942;
+}

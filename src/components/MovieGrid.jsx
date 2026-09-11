@@ -8,9 +8,12 @@ function MovieGrid({ movieDetails }) {
     <>
       <div className="container">
         <div className="movie-grid">
-          {movieDetails?.Search?.map((movie) => {
+          {movieDetails?.map((movie) => {
             return (
-              <Link to={`/MovieDetails/${movie.imdbID}/view`}>
+              <Link
+                key={movie.imdbID}
+                to={`/MovieDetails/${movie.imdbID}/view`}
+              >
                 <MovieCard movie={movie}></MovieCard>
               </Link>
             );

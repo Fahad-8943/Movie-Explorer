@@ -1,22 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import "./Header.css";
+import { Link } from "react-router-dom";
 
-
-function Header() {
+function Header({ clearSearch }) {
   return (
     <>
-    <header>
-      <div>
-        <h2 className='header-title'>MOVIE EXPLORER</h2>
-      </div>
-      <nav>
-        <Link to={"/"}>Popular</Link>
-        <Link to={"/"}>Trending</Link>
-      </nav>
-    </header>
+      <header className="header">
+        <div className="header-container">
+          <Link to="/" className="logo" onClick={clearSearch}>
+            🎬 Movie Explorer
+          </Link>
 
+          <nav className="nav">
+            <Link to="/" onClick={clearSearch}>
+              Home
+            </Link>
+            <Link>Favorites</Link>
+          </nav>
+        </div>
+      </header>
     </>
-  )
+  );
 }
 
-export default Header
+export default Header;

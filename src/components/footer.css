@@ -1,0 +1,37 @@
+.footer {
+  margin-top: 60px;
+  background-color: #11141B;
+  border-top: 1px solid #262C38;
+}
+
+.footer-container {
+  width: min(92%, 1200px);
+  margin: 0 auto;
+  padding: 24px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer p {
+  margin: 0;
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+.footer p:first-child {
+  color: #F5F7FA;
+}
+
+.footer p:last-child {
+  color: #F5B942;
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
