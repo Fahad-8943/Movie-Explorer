@@ -20,7 +20,7 @@ function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
 
       try {
         const movieResponse = await fetch(
-          `https://www.omdbapi.com/?s=${searchValue}&apikey=af55e318`,
+          `https://www.omdbapi.com/?s=${searchValue}&apikey=f7827d72`,
         );
         const data = await movieResponse.json();
         if (data.Response === "False") {
@@ -29,7 +29,7 @@ function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
         }
         const moviePromises = data?.Search.map((movie) => {
           return fetch(
-            `https://www.omdbapi.com/?i=${movie.imdbID}&apikey=af55e318`,
+            `https://www.omdbapi.com/?i=${movie.imdbID}&apikey=f7827d72`,
           );
         });
         const responses = await Promise.all(moviePromises);
@@ -64,7 +64,7 @@ function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
 
   return (
     <main className="home">
-      <SearchBar onSearch={handleSearch} setMovie={setMovie} movie={movie}/>
+      <SearchBar onSearch={handleSearch} setMovie={setMovie} movie={movie} />
 
       {error && <ErrorMessage error={error} />}
       {loading && <Loader></Loader>}
