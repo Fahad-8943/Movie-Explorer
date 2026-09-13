@@ -1,23 +1,27 @@
 import React from "react";
 import "./MovieCard.css";
 function MovieCard({ movie }) {
+
   return (
     <div className="movie-card">
-      <img src={movie.Poster} alt={movie.Title} />
+      <img
+        src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
+        alt={movie.title}
+      />
 
       <div className="movie-info">
-        <h2>{movie.Title}</h2>
+        <h2>{movie.title}</h2>
 
         <p>
-          <strong>Year:</strong> {movie.Year}
+          <strong>Release Date:</strong> {movie.release_date}
         </p>
 
         <p>
-          <strong>IMDb Rating:</strong> ⭐ {movie.imdbRating}
+          <strong>IMDb Rating:</strong> ⭐ {movie.vote_average}
         </p>
 
         <p>
-          <strong>Plot:</strong> {movie.Plot}
+          <strong>Overview:</strong> {movie.overview}
         </p>
       </div>
     </div>

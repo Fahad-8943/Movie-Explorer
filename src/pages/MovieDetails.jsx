@@ -3,26 +3,48 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./MovieDetails.css";
 import ErrorMessage from "../components/ErrorMessage";
 import Loader from "../components/Loader";
+import { getMovieDetail } from "../api/allApi";
 
 function MovieDetails() {
-  const { imdbID } = useParams();
+  const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const getMovieDetails = async () => {
+    const seenWriters = new Set();
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://www.omdbapi.com/?i=${imdbID}&apikey=f7827d72`,
-      );
-      const data = await response.json();
-      if (data.Response === "False") {
-        setError("Something went wrong. Please try again.");
-        return;
-      }
-      setMovieDetails(data);
+      const data = await getMovieDetail(id);
+      console.log(data);
+      const cleanData = {
+        ...data,
+        director: data?.credits?.crew.find(
+          (director) => director?.job === "Director",
+        ),
+        actors: data?.credits?.cast.slice(0, 5),
+        writers: data?.credits?.crew.filter((person) => {
+          const isWriter =
+            person?.job === "Writer" ||
+            person?.job === "Screenplay" ||
+            person?.job === "Story";
+
+          if (!isWriter) {
+            return false;
+          }
+
+          if (seenWriters.has(person.id)) {
+            return false;
+          }
+
+          seenWriters.add(person.id);
+          return true;
+        }),
+      };
+      console.log(cleanData);
+
+      setMovieDetails(cleanData);
     } catch (error) {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -31,7 +53,7 @@ function MovieDetails() {
   };
   useEffect(() => {
     getMovieDetails();
-  }, [imdbID]);
+  }, [id]);
   if (error) {
     return <ErrorMessage error={error}></ErrorMessage>;
   }
@@ -40,93 +62,146 @@ function MovieDetails() {
   }
   return (
     <div className="movie-details-page">
-      <button onClick={() => navigate(-1)} className="back-link">
-        ← Back to Search{" "}
-      </button>
-      <div className="movie-details">
-        <img src={movieDetails?.Poster} alt={movieDetails?.Title} />
+      <div
+        className="movie-details"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movieDetails?.backdrop_path})`,
+        }}
+      >
+        {/* Back button */}
+        <button onClick={() => navigate(-1)} className="back-link">
+          ← Back to Search
+        </button>
 
-        <div className="movie-info">
-          <h1>{movieDetails?.Title}</h1>
+        {/* Main content */}
+        <div className="movie-details-content">
+          {/* LEFT SIDE */}
+          <div className="movie-poster-section">
+            <img
+              className="movie-poster"
+              src={
+                "https://image.tmdb.org/t/p/w500/" + movieDetails?.poster_path
+              }
+              alt={movieDetails?.title}
+            />
 
-          <p>
-            <strong>Year:</strong> {movieDetails?.Year}
-          </p>
+            {/* Production companies */}
+            <div className="production-companies">
+              <h3>Production</h3>
 
-          <p>
-            <strong>Type:</strong> {movieDetails?.Type}
-          </p>
+              <div className="production-company-list">
+                {movieDetails?.production_companies?.map((company) => {
+                  return (
+                    <div className="production-company">
+                      {company.logo_path ? (
+                        <img
+                          src={
+                            "https://image.tmdb.org/t/p/w500/" +
+                            company.logo_path
+                          }
+                          alt={company?.name}
+                        />
+                      ) : (
+                        <span></span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
 
-          <p>
-            <strong>Rated:</strong> {movieDetails?.Rated}
-          </p>
+          {/* RIGHT SIDE */}
+          <div className="movie-info">
+            <h1>{movieDetails?.title}</h1>
 
-          <p>
-            <strong>Released:</strong> {movieDetails?.Released}
-          </p>
+            <p className="tagline">{movieDetails?.tagline}</p>
 
-          <p>
-            <strong>Runtime:</strong> {movieDetails?.Runtime}
-          </p>
+            <div className="movie-meta">
+              <span>{movieDetails?.release_date}</span>
+              <span>{movieDetails?.runtime}</span>
+              <span>⭐ {movieDetails?.vote_average}</span>
+            </div>
 
-          <p>
-            <strong>Genre:</strong> {movieDetails?.Genre}
-          </p>
+            <div className="genres">
+              {movieDetails?.genres?.map((gen) => {
+                return <span>{gen?.name}</span>;
+              })}
+            </div>
 
-          <p>
-            <strong>Director:</strong> {movieDetails?.Director}
-          </p>
+            <h3>Overview</h3>
+            <p>{movieDetails?.overview}</p>
 
-          <p>
-            <strong>Writer:</strong> {movieDetails?.Writer}
-          </p>
+            <h3>Director</h3>
 
-          <p>
-            <strong>Actors:</strong> {movieDetails?.Actors}
-          </p>
+            <div className="people-list">
+              <div className="person-card" key={movieDetails?.director?.id}>
+                <img
+                  src={
+                    "https://image.tmdb.org/t/p/w185/" +
+                    movieDetails?.director?.profile_path
+                  }
+                  alt={movieDetails?.director?.name}
+                />
+                <span>{movieDetails?.director?.name}</span>
+              </div>
+            </div>
 
-          <h3>Plot</h3>
+            <h3>Writers</h3>
 
-          <p>{movieDetails?.Plot}</p>
+            <div className="people-list">
+              {movieDetails?.writers?.map((writer) => (
+                <div className="person-card" key={writer.id}>
+                  <img
+                    src={
+                      "https://image.tmdb.org/t/p/w185/" + writer.profile_path
+                    }
+                    alt={writer.name}
+                  />
+                  <span>{writer.name}</span>
+                </div>
+              ))}
+            </div>
 
-          <p>
-            <strong>Language:</strong> {movieDetails?.Language}
-          </p>
+            <h3>Cast</h3>
 
-          <p>
-            <strong>Country:</strong> {movieDetails?.Country}
-          </p>
+            <div className="people-list">
+              {movieDetails?.actors?.map((actor) => (
+                <div className="person-card" key={actor.id}>
+                  <img
+                    src={
+                      "https://image.tmdb.org/t/p/w185/" + actor.profile_path
+                    }
+                    alt={actor.name}
+                  />
 
-          <p>
-            <strong>Awards:</strong>
-            {movieDetails?.Awards}
-          </p>
+                  <span>{actor.name}</span>
+                  <small>{actor.character}</small>
+                </div>
+              ))}
+            </div>
 
-          <h3>Ratings</h3>
+            <div className="additional-details">
+              <p>
+                <strong>Release Date: </strong>
+                {movieDetails?.release_date}
+              </p>
 
-          {movieDetails?.Ratings?.map((rating) => (
-            <p key={rating.Source}>
-              <strong>{rating.Source}:</strong> {rating.Value}
-            </p>
-          ))}
+              <p>
+                <strong>Language: </strong>
+                {movieDetails?.spoken_languages?.map((lang) => {
+                  return <span>{lang?.name}, </span>;
+                })}
+              </p>
 
-          <p>
-            <strong>IMDb Votes:</strong> {movieDetails?.imdbVotes}
-          </p>
-
-          {/* Movie-specific details */}
-          {movieDetails?.Type === "movie" && (
-            <p>
-              <strong>Box Office:</strong> {movieDetails?.BoxOffice}
-            </p>
-          )}
-
-          {/* Series-specific details */}
-          {movieDetails?.Type === "series" && (
-            <p>
-              <strong>Total Seasons:</strong> {movieDetails?.totalSeasons}
-            </p>
-          )}
+              <p>
+                <strong>Country: </strong>
+                {movieDetails?.production_countries?.map((count) => {
+                  return <span>{count?.name}, </span>;
+                })}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

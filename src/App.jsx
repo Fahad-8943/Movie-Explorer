@@ -31,7 +31,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/MovieDetails/:imdbID/view"
+          path="/MovieDetails/:id/view"
           element={<MovieDetails />}
         ></Route>
         <Route path="*" element={<PageNotFound />}></Route>

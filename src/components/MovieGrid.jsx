@@ -4,6 +4,8 @@ import "./MovieGrid.css";
 import { Link } from "react-router-dom";
 
 function MovieGrid({ movieDetails }) {
+  console.log(movieDetails);
+  
   return (
     <>
       <div className="container">
@@ -11,8 +13,8 @@ function MovieGrid({ movieDetails }) {
           {movieDetails?.map((movie) => {
             return (
               <Link
-                key={movie.imdbID}
-                to={`/MovieDetails/${movie.imdbID}/view`}
+                key={movie.id}
+                to={`/MovieDetails/${movie.id}/view`}
               >
                 <MovieCard movie={movie}></MovieCard>
               </Link>
