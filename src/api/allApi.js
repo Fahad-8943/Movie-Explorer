@@ -20,7 +20,8 @@ export const getNowPlayingmovie = async () => {
 };
 
 export const getTrendingMovie = async () => {
-  return await apiService("GET", "/trending/movie/week", {}, {});
+  const movies = await apiService("GET", "/trending/movie/week", {}, {});
+  return movies.data.results;
 };
 export const popularMovie = async () => {
   return await apiService("GET", "/movie/popular", {});

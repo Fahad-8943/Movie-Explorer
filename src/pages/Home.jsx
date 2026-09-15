@@ -5,6 +5,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import Loader from "../components/Loader";
 import "./Home.css";
 import { popularMovie, searchMovies, topRatedMovies } from "../api/allApi";
+import Hero from "../components/Hero";
 
 function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
   const [error, setError] = useState("");
@@ -42,6 +43,7 @@ function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
 
   return (
     <main className="home">
+      <Hero />
       <SearchBar onSearch={handleSearch} setMovie={setMovie} movie={movie} />
 
       {error && <ErrorMessage error={error} />}

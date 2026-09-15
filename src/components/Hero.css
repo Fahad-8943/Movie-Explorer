@@ -1,0 +1,326 @@
+.hero {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #0b0d12;
+}
+
+/* Background image */
+.hero-background {
+  position: absolute;
+  inset: 0;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  animation: heroBackground 0.8s ease both;
+}
+
+/* Dark overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(11, 13, 18, 0.98) 0%,
+      rgba(11, 13, 18, 0.78) 35%,
+      rgba(11, 13, 18, 0.3) 70%,
+      rgba(11, 13, 18, 0.65) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(11, 13, 18, 0.95),
+      transparent 40%
+    );
+
+  z-index: 1;
+}
+
+/* Movie information */
+.hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(90%, 1100px);
+  margin: 0 auto;
+
+  padding: 80px 0;
+
+  animation: heroContent 0.7s ease both;
+}
+
+.hero-label {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  color: #f5b942;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero-content h1 {
+  max-width: 650px;
+
+  margin: 0 0 15px;
+
+  color: #f5f7fa;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 15px;
+
+  margin-bottom: 20px;
+}
+
+.hero-meta span {
+  color: #f5f7fa;
+
+  font-weight: 600;
+}
+
+.hero-content p {
+  max-width: 600px;
+
+  margin: 0 0 30px;
+
+  color: #d1d5db;
+
+  font-size: 1rem;
+  line-height: 1.7;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* View details */
+.hero-button {
+  display: inline-block;
+
+  padding: 12px 22px;
+
+  border-radius: 6px;
+
+  background-color: #f5b942;
+
+  color: #0b0d12;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.hero-button:hover {
+  background-color: #ffd166;
+
+  transform: translateY(-2px);
+}
+
+/* Arrows */
+.hero-arrow {
+  position: absolute;
+  z-index: 3;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 45px;
+  height: 45px;
+
+  border: 1px solid rgba(245, 247, 250, 0.3);
+  border-radius: 50%;
+
+  background: rgba(11, 13, 18, 0.5);
+
+  color: #f5f7fa;
+
+  cursor: pointer;
+
+  font-size: 1.2rem;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.hero-arrow:hover {
+  background-color: rgba(245, 185, 66, 0.9);
+
+  color: #0b0d12;
+
+  transform: translateY(-50%) scale(1.05);
+}
+
+.hero-arrow-left {
+  left: 25px;
+}
+
+.hero-arrow-right {
+  right: 25px;
+}
+
+/* Dots */
+.hero-dots {
+  position: absolute;
+  z-index: 3;
+
+  bottom: 25px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-dots button {
+  width: 8px;
+  height: 8px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #9ca3af;
+
+  cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.hero-dots button.active {
+  width: 25px;
+
+  border-radius: 5px;
+
+  background-color: #f5b942;
+}
+
+/* Loading */
+.hero-loading {
+  min-height: 600px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #f5f7fa;
+}
+
+/* Background animation */
+@keyframes heroBackground {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Content animation */
+@keyframes heroContent {
+  from {
+    opacity: 0;
+    transform: translateX(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 550px;
+  }
+
+  .hero-content {
+    width: min(82%, 600px);
+
+    padding: 60px 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+
+    -webkit-line-clamp: 4;
+  }
+
+  .hero-arrow {
+    width: 38px;
+    height: 38px;
+
+    font-size: 1rem;
+  }
+
+  .hero-arrow-left {
+    left: 10px;
+  }
+
+  .hero-arrow-right {
+    right: 10px;
+  }
+
+  .hero-dots {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 520px;
+  }
+
+  .hero-content {
+    width: 75%;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-label {
+    font-size: 0.7rem;
+  }
+
+  .hero-meta {
+    gap: 10px;
+  }
+
+  .hero-content p {
+    font-size: 0.85rem;
+  }
+}
