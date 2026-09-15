@@ -1,6 +1,8 @@
 .hero {
   position: relative;
+
   min-height: 600px;
+
   overflow: hidden;
 
   display: flex;
@@ -9,22 +11,44 @@
   background-color: #0b0d12;
 }
 
-/* Background image */
+/* =========================
+   BACKGROUND
+========================= */
+
 .hero-background {
   position: absolute;
+
   inset: 0;
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  animation: heroBackground 0.8s ease both;
+  opacity: 1;
+
+  transform: scale(1);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s ease;
 }
 
-/* Dark overlay */
+.hero-background.changing {
+  opacity: 0.25;
+
+  transform: scale(1.03);
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
 .hero-overlay {
   position: absolute;
+
   inset: 0;
+
+  z-index: 1;
 
   background:
     linear-gradient(
@@ -34,27 +58,42 @@
       rgba(11, 13, 18, 0.3) 70%,
       rgba(11, 13, 18, 0.65) 100%
     ),
-    linear-gradient(
-      to top,
-      rgba(11, 13, 18, 0.95),
-      transparent 40%
-    );
-
-  z-index: 1;
+    linear-gradient(to top, rgba(11, 13, 18, 0.95), transparent 40%);
 }
 
-/* Movie information */
+/* =========================
+   CONTENT
+========================= */
+
 .hero-content {
   position: relative;
+
   z-index: 2;
 
   width: min(90%, 1100px);
+
   margin: 0 auto;
 
   padding: 80px 0;
 
-  animation: heroContent 0.7s ease both;
+  opacity: 1;
+
+  transform: translateX(0);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
+
+.hero-content.changing {
+  opacity: 0;
+
+  transform: translateX(-25px);
+}
+
+/* =========================
+   LABEL
+========================= */
 
 .hero-label {
   display: inline-block;
@@ -64,9 +103,15 @@
   color: #f5b942;
 
   font-size: 0.85rem;
+
   font-weight: 700;
+
   letter-spacing: 2px;
 }
+
+/* =========================
+   TITLE
+========================= */
 
 .hero-content h1 {
   max-width: 650px;
@@ -76,11 +121,17 @@
   color: #f5f7fa;
 
   font-size: clamp(2.5rem, 6vw, 5rem);
+
   line-height: 1.05;
 }
 
+/* =========================
+   META
+========================= */
+
 .hero-meta {
   display: flex;
+
   gap: 15px;
 
   margin-bottom: 20px;
@@ -92,6 +143,10 @@
   font-weight: 600;
 }
 
+/* =========================
+   OVERVIEW
+========================= */
+
 .hero-content p {
   max-width: 600px;
 
@@ -100,15 +155,22 @@
   color: #d1d5db;
 
   font-size: 1rem;
+
   line-height: 1.7;
 
   display: -webkit-box;
+
   -webkit-line-clamp: 3;
+
   -webkit-box-orient: vertical;
+
   overflow: hidden;
 }
 
-/* View details */
+/* =========================
+   BUTTON
+========================= */
+
 .hero-button {
   display: inline-block;
 
@@ -135,18 +197,25 @@
   transform: translateY(-2px);
 }
 
-/* Arrows */
+/* =========================
+   ARROWS
+========================= */
+
 .hero-arrow {
   position: absolute;
+
   z-index: 3;
 
   top: 50%;
+
   transform: translateY(-50%);
 
   width: 45px;
+
   height: 45px;
 
   border: 1px solid rgba(245, 247, 250, 0.3);
+
   border-radius: 50%;
 
   background: rgba(11, 13, 18, 0.5);
@@ -160,15 +229,22 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.hero-arrow:hover {
+.hero-arrow:hover:not(:disabled) {
   background-color: rgba(245, 185, 66, 0.9);
 
   color: #0b0d12;
 
   transform: translateY(-50%) scale(1.05);
+}
+
+.hero-arrow:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
 }
 
 .hero-arrow-left {
@@ -179,28 +255,37 @@
   right: 25px;
 }
 
-/* Dots */
+/* =========================
+   DOTS
+========================= */
+
 .hero-dots {
   position: absolute;
+
   z-index: 3;
 
   bottom: 25px;
+
   left: 50%;
 
   transform: translateX(-50%);
 
   display: flex;
+
   align-items: center;
+
   gap: 8px;
 }
 
 .hero-dots button {
   width: 8px;
+
   height: 8px;
 
   padding: 0;
 
   border: none;
+
   border-radius: 50%;
 
   background-color: #9ca3af;
@@ -209,7 +294,8 @@
 
   transition:
     width 0.3s ease,
-    background-color 0.3s ease;
+    background-color 0.3s ease,
+    opacity 0.2s ease;
 }
 
 .hero-dots button.active {
@@ -220,44 +306,32 @@
   background-color: #f5b942;
 }
 
-/* Loading */
+.hero-dots button:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.5;
+}
+
+/* =========================
+   LOADING
+========================= */
+
 .hero-loading {
   min-height: 600px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   color: #f5f7fa;
 }
 
-/* Background animation */
-@keyframes heroBackground {
-  from {
-    opacity: 0;
-    transform: scale(1.04);
-  }
+/* =========================
+   TABLET
+========================= */
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Content animation */
-@keyframes heroContent {
-  from {
-    opacity: 0;
-    transform: translateX(-25px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Mobile */
 @media (max-width: 768px) {
   .hero {
     min-height: 550px;
@@ -281,6 +355,7 @@
 
   .hero-arrow {
     width: 38px;
+
     height: 38px;
 
     font-size: 1rem;
@@ -298,6 +373,10 @@
     bottom: 20px;
   }
 }
+
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media (max-width: 480px) {
   .hero {

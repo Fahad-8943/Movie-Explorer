@@ -1,0 +1,289 @@
+.movie-row {
+  width: min(92%, 1200px);
+  margin: 50px auto;
+}
+
+/* =========================
+   ROW HEADER
+========================= */
+
+.movie-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.movie-row-header h2 {
+  margin: 0;
+
+  color: #f5f7fa;
+
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 700;
+}
+
+/* =========================
+   HORIZONTAL MOVIE LIST
+========================= */
+
+.movie-row-list {
+  display: flex;
+  gap: 18px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 6px 4px 18px;
+
+  scroll-behavior: smooth;
+
+  /* Better mouse/touch scrolling */
+  scroll-snap-type: x proximity;
+
+  /* Prevent scrollbar from taking too much space */
+  scrollbar-width: thin;
+  scrollbar-color: #3a404d transparent;
+}
+
+/* Chrome / Edge / Safari */
+
+.movie-row-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.movie-row-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.movie-row-list::-webkit-scrollbar-thumb {
+  background: #3a404d;
+  border-radius: 20px;
+
+  transition: background-color 0.2s ease;
+}
+
+.movie-row-list::-webkit-scrollbar-thumb:hover {
+  background: #f5b942;
+}
+
+/* =========================
+   MOVIE CARD
+========================= */
+
+.movie-row-card {
+  position: relative;
+
+  flex: 0 0 180px;
+
+  color: inherit;
+  text-decoration: none;
+
+  border: 1px solid #262c38;
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  background-color: #171b24;
+
+  scroll-snap-align: start;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.movie-row-card:hover {
+  transform: translateY(-7px);
+
+  border-color: rgba(245, 185, 66, 0.5);
+
+  background-color: #1d2330;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   POSTER
+========================= */
+
+.movie-row-poster {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 2 / 3;
+
+  overflow: hidden;
+
+  background-color: #11141b;
+}
+
+.movie-row-poster img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.4s ease,
+    filter 0.3s ease;
+}
+
+.movie-row-card:hover .movie-row-poster img {
+  transform: scale(1.06);
+
+  filter: brightness(0.85);
+}
+
+/* =========================
+   RATING
+========================= */
+
+.movie-row-rating {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  padding: 5px 8px;
+
+  border: 1px solid rgba(245, 247, 250, 0.15);
+  border-radius: 6px;
+
+  background: rgba(11, 13, 18, 0.88);
+
+  color: #f5f7fa;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  backdrop-filter: blur(4px);
+}
+
+/* =========================
+   MOVIE INFORMATION
+========================= */
+
+.movie-row-info {
+  padding: 12px;
+}
+
+.movie-row-info h3 {
+  margin: 0 0 6px;
+
+  color: #f5f7fa;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+.movie-row-info span {
+  color: #9ca3af;
+
+  font-size: 0.8rem;
+}
+
+/* =========================
+   HORIZONTAL SCROLL HINT
+========================= */
+
+.movie-row-list::after {
+  content: "";
+
+  flex: 0 0 1px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+  .movie-row {
+    width: 92%;
+
+    margin: 40px auto;
+  }
+
+  .movie-row-list {
+    gap: 14px;
+
+    padding-bottom: 15px;
+
+    scroll-snap-type: x mandatory;
+
+    /* Hide scrollbar on touch devices */
+    scrollbar-width: none;
+  }
+
+  .movie-row-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .movie-row-card {
+    flex-basis: 150px;
+
+    border-radius: 10px;
+  }
+
+  .movie-row-info {
+    padding: 10px;
+  }
+
+  .movie-row-info h3 {
+    font-size: 0.85rem;
+  }
+
+  .movie-row-info span {
+    font-size: 0.75rem;
+  }
+
+  .movie-row-rating {
+    top: 8px;
+    right: 8px;
+
+    padding: 4px 7px;
+
+    font-size: 0.7rem;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .movie-row {
+    width: 90%;
+
+    margin: 35px auto;
+  }
+
+  .movie-row-header {
+    margin-bottom: 14px;
+  }
+
+  .movie-row-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .movie-row-list {
+    gap: 12px;
+  }
+
+  .movie-row-card {
+    flex-basis: 135px;
+  }
+}

@@ -7,6 +7,7 @@ function Hero() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isChanging, setIsChanging] = useState(false);
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -29,30 +30,49 @@ function Hero() {
     fetchTrendingMovies();
   }, []);
 
+  const changeSlide = (newIndex) => {
+    if (isChanging || !movies.length) return;
+
+    setIsChanging(true);
+
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setIsChanging(false);
+    }, 350);
+  };
+
+  const nextSlide = () => {
+    if (isChanging || !movies.length) return;
+
+    const nextIndex =
+      currentIndex === movies.length - 1 ? 0 : currentIndex + 1;
+
+    changeSlide(nextIndex);
+  };
+
+  const previousSlide = () => {
+    if (isChanging || !movies.length) return;
+
+    const previousIndex =
+      currentIndex === 0 ? movies.length - 1 : currentIndex - 1;
+
+    changeSlide(previousIndex);
+  };
+
   // Automatic sliding
   useEffect(() => {
     if (!movies.length) return;
 
     const interval = setInterval(() => {
+      if (isChanging) return;
+
       setCurrentIndex((prevIndex) =>
         prevIndex === movies.length - 1 ? 0 : prevIndex + 1,
       );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [movies]);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === movies.length - 1 ? 0 : prevIndex + 1,
-    );
-  };
-
-  const previousSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? movies.length - 1 : prevIndex - 1,
-    );
-  };
+  }, [movies, isChanging]);
 
   if (loading) {
     return <div className="hero-loading">Loading...</div>;
@@ -68,8 +88,7 @@ function Hero() {
     <section className="hero">
       {/* Background */}
       <div
-        key={movie.id}
-        className="hero-background"
+        className={`hero-background ${isChanging ? "changing" : ""}`}
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }}
@@ -82,25 +101,30 @@ function Hero() {
       <button
         className="hero-arrow hero-arrow-left"
         onClick={previousSlide}
+        disabled={isChanging}
         aria-label="Previous movie"
       >
         ❮
       </button>
 
       {/* Movie content */}
-      <div className="hero-content" key={movie.id}>
+      <div className={`hero-content ${isChanging ? "changing" : ""}`}>
         <span className="hero-label">TRENDING THIS WEEK</span>
 
         <h1>{movie.title}</h1>
 
         <div className="hero-meta">
           <span>{movie.release_date?.slice(0, 4)}</span>
+
           <span>⭐ {movie.vote_average?.toFixed(1)}</span>
         </div>
 
         <p>{movie.overview}</p>
 
-        <Link to={`/MovieDetails/${movie.id}/view`} className="hero-button">
+        <Link
+          to={`/MovieDetails/${movie.id}/view`}
+          className="hero-button"
+        >
           View Details
         </Link>
       </div>
@@ -109,6 +133,7 @@ function Hero() {
       <button
         className="hero-arrow hero-arrow-right"
         onClick={nextSlide}
+        disabled={isChanging}
         aria-label="Next movie"
       >
         ❯
@@ -118,9 +143,10 @@ function Hero() {
       <div className="hero-dots">
         {movies.map((movie, index) => (
           <button
-            key={index}
+            key={`${movie.id}-${index}`}
             className={index === currentIndex ? "active" : ""}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => changeSlide(index)}
+            disabled={isChanging}
             aria-label={`Go to slide ${index + 1}`}
           ></button>
         ))}

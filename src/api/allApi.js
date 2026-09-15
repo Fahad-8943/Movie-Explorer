@@ -16,7 +16,8 @@ export const getMovieDetail = async (id) => {
 };
 
 export const getNowPlayingmovie = async () => {
-  return await apiService("GET", "/movie/now_playing", {}, {});
+  const movies = await apiService("GET", "/movie/now_playing", {}, {});
+  return movies.data.results;
 };
 
 export const getTrendingMovie = async () => {
@@ -24,9 +25,11 @@ export const getTrendingMovie = async () => {
   return movies.data.results;
 };
 export const popularMovie = async () => {
-  return await apiService("GET", "/movie/popular", {});
+  const movies = await apiService("GET", "/movie/popular", {});
+  return movies.data.results;
 };
 
 export const topRatedMovies = async () => {
-  return await apiService("GET", "/movie/top_rated", {});
+  const movies = await apiService("GET", "/movie/top_rated", {});
+  return movies.data.results;
 };

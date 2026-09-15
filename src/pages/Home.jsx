@@ -4,19 +4,39 @@ import MovieGrid from "../components/MovieGrid";
 import ErrorMessage from "../components/ErrorMessage";
 import Loader from "../components/Loader";
 import "./Home.css";
-import { popularMovie, searchMovies, topRatedMovies } from "../api/allApi";
+import {
+  getNowPlayingmovie,
+  popularMovie,
+  searchMovies,
+  topRatedMovies,
+} from "../api/allApi";
 import Hero from "../components/Hero";
+import MovieRow from "../components/MovieRow";
 
 function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovie, setTopRatedMovie] = useState([]);
+  const [nowPlayingMovie, setNowPlayingMovie] = useState([]);
   useEffect(() => {
-    setPopularMovies(popularMovie());
-    const topRatedResponse = topRatedMovies();
+    const fetchMovies = async () => {
+      try {
+        const [popular, topRated, nowPlaying] = await Promise.all([
+          popularMovie(),
+          topRatedMovies(),
+          getNowPlayingmovie(),
+        ]);
 
-    console.log(popularMovies);
-    console.log(topRatedResponse);
+        setPopularMovies(popular);
+        setTopRatedMovie(topRated);
+        setNowPlayingMovie(nowPlaying);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMovies();
   }, []);
   const handleSearch = async () => {
     const searchValue = movie;
@@ -50,6 +70,10 @@ function Home({ movie, setMovie, movieDetails, setMovieDetails }) {
       {loading && <Loader></Loader>}
 
       <MovieGrid movieDetails={movieDetails} />
+
+      <MovieRow title="Now Playing Movies" movies={nowPlayingMovie} />
+      <MovieRow title="Popular Movies" movies={popularMovies} />
+      <MovieRow title="Top Rated Movies" movies={topRatedMovie} />
     </main>
   );
 }
