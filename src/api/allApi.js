@@ -6,10 +6,22 @@ export const searchMovies = async (movie) => {
 };
 
 export const getMovieDetail = async (id) => {
-  const movies = await apiService("GET", `/movie/${id}`, {append_to_response:"credits"}, {});
+  const movies = await apiService(
+    "GET",
+    `/movie/${id}`,
+    { append_to_response: "credits" },
+    {},
+  );
   return movies.data;
 };
 
+export const getNowPlayingmovie = async () => {
+  return await apiService("GET", "/movie/now_playing", {}, {});
+};
+
+export const getTrendingMovie = async () => {
+  return await apiService("GET", "/trending/movie/week", {}, {});
+};
 export const popularMovie = async () => {
   return await apiService("GET", "/movie/popular", {});
 };
