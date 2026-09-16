@@ -8,9 +8,9 @@ Movie Explorer allows users to search for movies, explore trending and popular t
 
 ## 🌐 Live Demo
 
-🔗 **Live Demo:** YOUR_VERCEL_URL
+🔗 **Live Demo:** https://movie-explorer-kappa-nine.vercel.app/
 
-🔗 **GitHub Repository:** YOUR_GITHUB_REPOSITORY_URL
+🔗 **GitHub Repository:** https://github.com/Fahad-8943/Movie-Explorer
 
 ---
 
