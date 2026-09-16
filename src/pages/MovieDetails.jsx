@@ -17,7 +17,7 @@ function MovieDetails() {
     setLoading(true);
     try {
       const data = await getMovieDetail(id);
-      console.log(data);
+      // console.log(data);
       const cleanData = {
         ...data,
         director: data?.credits?.crew.find(
@@ -42,7 +42,7 @@ function MovieDetails() {
           return true;
         }),
       };
-      console.log(cleanData);
+      // console.log(cleanData);
 
       setMovieDetails(cleanData);
     } catch (error) {
