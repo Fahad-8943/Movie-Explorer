@@ -119,7 +119,7 @@ function MovieDetails() {
 
             <div className="movie-meta">
               <span>{movieDetails?.release_date}</span>
-              <span>{movieDetails?.runtime}</span>
+              <span>{movieDetails?.runtime} Minutes</span>
               <span>⭐ {movieDetails?.vote_average}</span>
             </div>
 
