@@ -15,7 +15,6 @@ function Header({ clearSearch }) {
             <Link to="/" onClick={clearSearch}>
               Home
             </Link>
-            <Link>Favorites</Link>
           </nav>
         </div>
       </header>
