@@ -4,7 +4,7 @@ import "./MovieGrid.css";
 import { Link } from "react-router-dom";
 
 function MovieGrid({ movieDetails }) {
-  console.log(movieDetails);
+  // console.log(movieDetails);
   
   return (
     <>
