@@ -1,18 +1,24 @@
-import React from "react";
 import "./SearchBar.css";
 
 function SearchBar({ onSearch, movie, setMovie }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSearch();
+  };
+
   return (
-    <div className="search-container">
+    <form className="search-container" onSubmit={handleSubmit}>
       <input
         type="search"
         name="search-bar"
         id="search-bar"
         value={movie}
         onChange={(e) => setMovie(e.target.value)}
+        placeholder="Search for a movie"
+        aria-label="Search for a movie"
       />
-      <button onClick={onSearch}>search</button>
-    </div>
+      <button type="submit">Search</button>
+    </form>
   );
 }
 
